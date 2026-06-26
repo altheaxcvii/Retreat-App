@@ -42,9 +42,6 @@ if st.session_state.currentstage == 0:
         if groupcode in groupcodedict:
             st.session_state.groupcode = groupcodedict[groupcode]
             
-            st.success("You've unlocked the hint to your next stage!")
-            st.info("Moving you to the next stage...")
-            
             sheet = get_sheet()
             cell = sheet.find(str(st.session_state.groupcode))
             st.session_state.grouprow = cell.row
@@ -56,10 +53,13 @@ if st.session_state.currentstage == 0:
 
             st.session_state.group_data = group_data
             if int(st.session_state.group_data['Current Station']) > 0:
-                st.session_state.currentstage = st.session_state.group_data['Current Station']
+                st.success('Teleporting you back to where you left off!')
+                st.session_state.currentstage = int(st.session_state.group_data['Current Station'])
             else:
+                st.success("You've unlocked the hint to your next stage!")
                 st.session_state.currentstage = 1
                 sheet.update_cell( st.session_state.grouprow, 3, 1)
+            st.info("🔓 Unlocking the doors for you, please wait...")
             time.sleep(5)
             st.rerun()
         else:
