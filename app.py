@@ -55,7 +55,7 @@ if st.session_state.currentstage == 0:
             group_data = dict(zip(headers, group_data))
 
             st.session_state.group_data = group_data
-            if st.session_state.group_data['Current Station'] > 0:
+            if int(st.session_state.group_data['Current Station']) > 0:
                 st.session_state.currentstage = st.session_state.group_data['Current Station']
             else:
                 st.session_state.currentstage = 1
