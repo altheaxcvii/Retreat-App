@@ -295,8 +295,7 @@ def stationdetails(stationno, stageno):
 
 
 st.set_page_config(page_title='RO Retreat 2026', page_icon='🔎')
-st.image("Assets/banner.jpg")
-#st.header('📍 RO Retreat 2026')
+st.image("Assets/BANNER.png")
 
 if 'currentstage' not in st.session_state:
     st.session_state.currentstage = 0
@@ -304,19 +303,23 @@ if 'currentstage' not in st.session_state:
 if st.session_state.currentstage > 0:
     with st.expander('You may need this 😊'):
         st.markdown("[🗺️ SIT Map to help you Navigate](https://www.singaporetech.edu.sg/campus-wayfinder)")
-        st.markdown("[🎵 Don't get stressed](https://youtu.be/z27LnN6SeK4?si=iD08iTwACo5KkrFy&t=46)")
 
 if st.session_state.currentstage == 0:
-    groupcode = st.text_input('🔐 Unlock your mission by entering your group code', max_chars=3)
+    groupcode = st.text_input('🔐 Unlock your mission by entering your group code', max_chars=6)
     if st.button('Submit group code'):
-        groupcodedict = {'abc':'grp1',
-                         'def':'grp2',
-                         'ghi':'grp3',
-                         'jkl':'grp4',
-                         'mno':'grp5',
-                         'pqr':'grp6',
-                         'stu':'grp7'}
-        if groupcode in groupcodedict:
+        groupcodedict = {'OFFICE':'grp1',
+                         'POLICY':'grp2',
+                         'DEGREE':'grp3',
+                         'GRADES':'grp4',
+                         'CAMPUS':'grp5',
+                         'MODULE':'grp6',
+                         'COHORT':'grp7',
+                         'DEMOG1':'demo1',
+                         'DEMOG2':'demo2',
+                         'DEMOG3':'demo3',
+                         'DEMOG4':'demo4',
+                         'DEMOG5':'demo5'}
+        if groupcode.upper() in groupcodedict:
             st.session_state.groupcode = groupcodedict[groupcode]
             
             sheet = get_sheet()
