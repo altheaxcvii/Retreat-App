@@ -79,6 +79,10 @@ def unlockhint(stageno):
             if picture:
                 if st.button('Unlock hint'):
                     upload_photo(picture, "1oo3VegWPYtbg_0xeyl0jVO4FPiI5gfNT", f"{st.session_state.group_data['Group Name']}_stage1_{datetime.now():%Y%m%d%H%M%S}.jpg")
+                    st.session_state.hint = "FALSE"
+                    sheet = get_sheet()
+                    sheet.update_cell(st.session_state.grouprow, 9, False)
+                    st.rerun()
     
 def stationdetails(stationno, stageno):
     stationinfo = get_stations()
@@ -100,8 +104,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -120,8 +124,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -137,8 +141,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -154,8 +158,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -172,8 +176,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -197,8 +201,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -214,8 +218,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
@@ -231,8 +235,8 @@ def stationdetails(stationno, stageno):
                 st.session_state.currentstage += 1 
                 sheet = get_sheet()
                 sheet.update_cell(st.session_state.grouprow, 3, st.session_state.currentstage)
-                sheet.update_cell(st.session_state.grouprow, 9, False)
-                st.session_state.hint = False
+                sheet.update_cell(st.session_state.grouprow, 9, "FALSE")
+                st.session_state.hint = "FALSE"
                 time.sleep(3)
                 st.rerun()
             else:
