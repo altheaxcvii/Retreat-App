@@ -66,16 +66,19 @@ def upload_photo(uploaded_file, folder_id, filename):
     file = drive.files().create(
         body=file_metadata,
         media_body=media,
-        fields="id"
+        fields="id",
+        supportsAllDrives=True
     ).execute()
     return file["id"]
 
 def unlockhint(stageno):
     if stageno == '1':
-        picture = st.camera_input("📸 Take a team photo! Line up from the first person who joined RO to the most recent member to unlock the next hint.")
-        if picture:
-            if st.button('Unlock hint'):
-                upload_photo(picture, "1oo3VegWPYtbg_0xeyl0jVO4FPiI5gfNT", f"{st.session_state.group_data['Group Name']}_stage1_{datetime.now():%Y%m%d%H%M%S}.jpg")
+        on = st.toggle("📸 Take a team photo! Line up from the first person who joined RO to the most recent member to unlock the next hint.")
+        if on:
+            picture = st.camera_input("📸 Take a team photo!")
+            if picture:
+                if st.button('Unlock hint'):
+                    upload_photo(picture, "1oo3VegWPYtbg_0xeyl0jVO4FPiI5gfNT", f"{st.session_state.group_data['Group Name']}_stage1_{datetime.now():%Y%m%d%H%M%S}.jpg")
     
 def stationdetails(stationno, stageno):
     stationinfo = get_stations()
