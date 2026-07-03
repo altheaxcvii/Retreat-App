@@ -320,7 +320,7 @@ if st.session_state.currentstage == 0:
                          'DEMOG4':'demo4',
                          'DEMOG5':'demo5'}
         if groupcode.upper() in groupcodedict:
-            st.session_state.groupcode = groupcodedict[groupcode]
+            st.session_state.groupcode = groupcodedict[groupcode.upper()]
             
             sheet = get_sheet()
             st.session_state.grouprow = sheet.find(str(st.session_state.groupcode)).row
