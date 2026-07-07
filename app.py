@@ -4,6 +4,15 @@ import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
+if 'currentstage' not in st.session_state:
+    st.session_state.currentstage = 0
+    st.session_state.buttonstate = False
+    st.session_state.wrongpwmsg = False
+
+if st.session_state.wrongpwmsg == True:
+    st.toast('Wrong Password, please try again...', icon='🙅🏻‍♂️', duration='long')
+    st.session_state.wrongpwmsg = False
+
 @st.cache_resource
 def get_sheet():
     scope = [
@@ -135,7 +144,7 @@ def completestage(grouprow):
 
 def wrongpw():
     buttonstatechange("Enabled")
-    st.toast('Wrong Password, please try again...', icon='🙅🏻‍♂️', duration='long')
+    st.session_state.wrongpwmsg = True
     st.rerun()
 
 def stationdetails(stationno, stageno):
@@ -299,10 +308,6 @@ def stationdetails(stationno, stageno):
 st.set_page_config(page_title='RO Retreat 2026', page_icon='🔎')
 st.image("Assets/BANNER.png")
 
-if 'currentstage' not in st.session_state:
-    st.session_state.currentstage = 0
-    st.session_state.buttonstate = False
-
 if st.session_state.currentstage >= 1:
     with st.expander('You may need this 😊'):
         st.markdown("[🗺️ SIT Map to help you Navigate](https://www.singaporetech.edu.sg/campus-wayfinder)")
@@ -342,8 +347,7 @@ if st.session_state.currentstage == 0:
             buttonstatechange("Enabled")
             st.rerun()
         else:
-            buttonstatechange("Enabled")
-            st.error('Invalid Code, Please Try Again!')
+            wrongpw()
 
 if st.session_state.currentstage == 0.5:
     grpname = st.text_input('Enter a group name')
@@ -361,7 +365,7 @@ if st.session_state.currentstage == 0.5:
             st.rerun()
         else:
             buttonstatechange("Enabled")
-            st.error('Please enter a name')
+            st.rerun()
 
 if st.session_state.currentstage == 1:
     st.header(f'🎉 Welcome, {st.session_state.group_data['Group Name']}!')
