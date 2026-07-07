@@ -118,7 +118,7 @@ def unlockhint(stageno):
     if stageno == '5':
         st.write("🪄 As a team, discuss the following scenario and agree on one option.")
         st.write("Don't worry—it's purely hypothetical! 😄")
-        topchoice = st.selectbox("Which deal would your team accept to unlock the next hint?", ['Never receive another email, but every message becomes a Teams call',
+        topchoice = st.radio("Which deal would your team accept to unlock the next hint?", ['Never receive another email, but every message becomes a Teams call',
                                                                                                 'Permanent WFH, but your camera must always stay on',
                                                                                                 'Free lunch every office day, but your boss chooses what you eat',
                                                                                                 "You get your own private office, but there's no air-conditioning",
