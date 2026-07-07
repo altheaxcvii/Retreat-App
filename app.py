@@ -148,6 +148,7 @@ def wrongpw():
     st.rerun()
 
 def stationdetails(stationno, stageno):
+    buttonstatechange("Enabled")
     stationinfo = get_stations()
     if stationno == "1":
         with st.expander(f"🗺️ Your clue for stage {stageno}"):
