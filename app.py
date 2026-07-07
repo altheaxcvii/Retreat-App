@@ -4,6 +4,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
+st.set_page_config(page_title='RO Retreat 2026', page_icon='🔎')
+
 if 'currentstage' not in st.session_state:
     st.session_state.currentstage = 0
     st.session_state.buttonstate = False
@@ -84,7 +86,7 @@ def unlockhint(stageno):
     if stageno == '1':
         st.write('🪑 So you think you know the office well? As a team, come to a best guess on how many chairs are there in the RO office space to unlock this hint.')
         chairs = st.number_input('How many chairs do your team thinks there are?', min_value=1, max_value=100)
-        if st.button('Record our guess!', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button('Record our guess!', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             log_action(st.session_state.group_data['Group Name'], "Unlocked Stage 1 Extra Hint", chairs)
             hintstatus("Unlocked", st.session_state.grouprow)
             st.rerun()
@@ -92,7 +94,7 @@ def unlockhint(stageno):
     if stageno == '2':
         st.write("📸 Take a team photo! Line up from the first person who joined RO to the most recent member to unlock this hint.")
         st.write("Post it on RO Whatsapp Chat to proceed.")
-        if st.button('Photo sent!', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button('Photo sent!', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             log_action(st.session_state.group_data['Group Name'], "Unlocked Stage 2 Extra Hint", "Check WA Grp for Photo")
             hintstatus("Unlocked", st.session_state.grouprow)
             st.rerun()
@@ -100,7 +102,7 @@ def unlockhint(stageno):
     if stageno == '3':
         st.write("🍜 Every team member should share their favourite place to eat near the office to unlock this hint.")
         food = st.text_input('As a team, submit one recommendation that everyone should try.')
-        if st.button('Share our recommendation!', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button('Share our recommendation!', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             log_action(st.session_state.group_data['Group Name'], "Unlocked Stage 3 Extra Hint", food)
             hintstatus("Unlocked", st.session_state.grouprow)
             st.rerun()
@@ -108,7 +110,7 @@ def unlockhint(stageno):
     if stageno == '4':
         st.write("🎖️ To unlock this hint, work together to invent a fictional RO award and decide who should receive it!")
         award = st.text_input('We will like to give out ____ to ____.')
-        if st.button('Submit our award!', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button('Submit our award!', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             log_action(st.session_state.group_data['Group Name'], "Unlocked Stage 4 Extra Hint", award)
             hintstatus("Unlocked", st.session_state.grouprow)
             st.rerun()
@@ -121,7 +123,7 @@ def unlockhint(stageno):
                                                                                                 'Free lunch every office day, but your boss chooses what you eat',
                                                                                                 "You get your own private office, but there's no air-conditioning",
                                                                                                 'Get one extra month of annual leave every year, but your team choose all your leave dates'])
-        if st.button('We made our choice!', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button('We made our choice!', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             log_action(st.session_state.group_data['Group Name'], "Unlocked Stage 5 Extra Hint", topchoice)
             hintstatus("Unlocked", st.session_state.grouprow)
             st.rerun()
@@ -129,7 +131,7 @@ def unlockhint(stageno):
     if stageno == '6':
         st.write("📸 Take a dramatic team selfie to unlock this final hint.")
         st.write("Post it on RO Whatsapp Chat to proceed.")
-        if st.button('Photo sent!', on_click=buttonstatechange("Disabled")):
+        if st.button('Photo sent!', on_click=buttonstatechange, args=("Disabled",)):
             log_action(st.session_state.group_data['Group Name'], "Unlocked Stage 6 Extra Hint", "Check WA Grp for Photo")
             hintstatus("Unlocked", st.session_state.grouprow)
             st.rerun()
@@ -148,7 +150,6 @@ def wrongpw():
     st.rerun()
 
 def stationdetails(stationno, stageno):
-    buttonstatechange("Enabled")
     stationinfo = get_stations()
     if stationno == "1":
         with st.expander(f"🗺️ Your clue for stage {stageno}"):
@@ -162,7 +163,7 @@ def stationdetails(stationno, stageno):
             else:
                 unlockhint(stageno)
         station1pw = st.text_input("What is the word you see on the board?", placeholder='Enter your answer')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station1pw.strip().upper() == stationinfo['Station 1 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -183,7 +184,7 @@ def stationdetails(stationno, stageno):
                 unlockhint(stageno)
             
         station2pw = st.text_input("What does PASS operate?", placeholder='Enter your answer')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station2pw.strip().upper() == stationinfo['Station 2 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -204,7 +205,7 @@ def stationdetails(stationno, stageno):
                 unlockhint(stageno)
 
         station3pw = st.text_input("What is the shirt color of the guy playing the erhu, and the photographer? Enter the answer as two separate words, with a space in between, no punctuations", placeholder='COLOR1 COLOR2')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station3pw.strip().upper() == stationinfo['Station 3 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -227,7 +228,7 @@ def stationdetails(stationno, stageno):
                 unlockhint(stageno)
 
         station4pw = st.text_input("What is the password?", placeholder='Enter your answer')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station4pw.strip().upper() == stationinfo['Station 4 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -248,7 +249,7 @@ def stationdetails(stationno, stageno):
                 unlockhint(stageno)
 
         station5pw = st.text_input("What is the weight of the machine?", placeholder='Enter your answer in xxxKG, no space in between please')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station5pw.strip().upper() == stationinfo['Station 5 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -274,7 +275,7 @@ def stationdetails(stationno, stageno):
                 unlockhint(stageno)
 
         station6pw = st.text_input("The courier waits where orange doors sleep. Do not seek the name. Seek its language. Only those who crack the courier's alphabet will know where the next clue lies.", placeholder='Enter your answer')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station6pw.strip().upper() == stationinfo['Station 6 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -296,7 +297,7 @@ def stationdetails(stationno, stageno):
                 unlockhint(stageno)
 
         station7pw = st.text_input("What is the password?", placeholder='Enter your answer')
-        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+        if st.button("Submit Password", disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
             if station7pw.strip().upper() == stationinfo['Station 7 Password']:
                 st.balloons()
                 st.toast(f'CONGRATS ON CLEARING STAGE {stageno}! Please wait...', icon='🎉', duration='long')
@@ -306,7 +307,6 @@ def stationdetails(stationno, stageno):
             else:
                 wrongpw()
 
-st.set_page_config(page_title='RO Retreat 2026', page_icon='🔎')
 st.image("Assets/BANNER.png")
 
 if st.session_state.currentstage >= 1:
@@ -315,7 +315,7 @@ if st.session_state.currentstage >= 1:
 
 if st.session_state.currentstage == 0:
     groupcode = st.text_input('🔐 Unlock your mission by entering your group code', max_chars=6)
-    if st.button('Submit group code', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+    if st.button('Submit group code', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
         groupcodedict = {'OFFICE':'grp1',
                          'POLICY':'grp2',
                          'DEGREE':'grp3',
@@ -352,7 +352,7 @@ if st.session_state.currentstage == 0:
 
 if st.session_state.currentstage == 0.5:
     grpname = st.text_input('Enter a group name')
-    if st.button('Submit group name', disabled=st.session_state.buttonstate, on_click=buttonstatechange("Disabled")):
+    if st.button('Submit group name', disabled=st.session_state.buttonstate, on_click=buttonstatechange, args=("Disabled",)):
         if grpname.strip():
             st.session_state.currentstage = 1
             sheet = get_sheet()
@@ -369,7 +369,7 @@ if st.session_state.currentstage == 0.5:
             st.rerun()
 
 if st.session_state.currentstage == 1:
-    st.header(f'🎉 Welcome, {st.session_state.group_data['Group Name']}!')
+    st.header(f"🎉 Welcome, {st.session_state.group_data['Group Name']}!")
     st.write('Your adventure starts here.')
     st.write('Study the clue below and work together to identify the first location. Once you arrive, search carefully for the password and enter it here to unlock the next stage.')
     st.write("Good luck, you've got this!")
