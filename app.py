@@ -312,7 +312,7 @@ st.image("Assets/BANNER.png")
 if st.session_state.currentstage >= 1:
     with st.expander('You may need this 😊'):
         st.markdown("[🗺️ SIT Map to help you Navigate](https://www.singaporetech.edu.sg/campus-wayfinder)")
-        stage = f'stage {st.session_state.currentstage}'
+        stage = f'Stage {st.session_state.currentstage}'
         st.write(f"If you're stuck on this stage for over 10 minutes, contact Eza/Hasanah/Hannah/Althea for help and quote station {st.session_state.group_data[stage]}")
 
 if st.session_state.currentstage == 0:
